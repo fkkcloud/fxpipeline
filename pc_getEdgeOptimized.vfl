@@ -1,0 +1,148 @@
+//
+// VEX Code Houdini 15.0.313
+// Date: March 03 15:57:23 2016
+//
+
+#ifndef VOP_OP
+#define VOP_OP
+#endif
+#ifndef VOP_CVEX
+#define VOP_CVEX
+#endif
+
+#include <voptype.h>
+cvex
+obj_geo2_pointvop_getEdge8(int ptnum = 0;
+	int vtxnum = 0;
+	int primnum = 0;
+	int id = -1;
+	int numpt = 0;
+	int numvtx = 0;
+	int numprim = 0;
+	float Time = 0;
+	float TimeInc = 0;
+	float Frame = 0;
+	float life = 0;
+	float age = 0;
+	string OpInput2 = "";
+	string OpInput3 = "";
+	string OpInput4 = "";
+	string OpInput1 = "";
+	vector uv = { 0, 0, 0 };
+	vector P = { 0, 0, 0 };
+	vector v = { 0, 0, 0 };
+	vector force = { 0, 0, 0 };
+	vector Cd = { 1, 1, 1 };
+	export vector N = { 0, 0, 0 };
+	string file = "defgeo.bgeo";
+	export float isedge = 0;
+	float edge_threshold = 10)
+{
+    vector	P_tmp;
+    vector	v_tmp;
+    vector	force_tmp;
+    vector	Cd_tmp;
+    vector	uv_tmp;
+    vector	N_tmp;
+    int	handle;
+    vector	value;
+    vector	diff;
+    vector	product;
+    float	len;
+    float	Value;
+    int	bool1;
+    float	fval;
+    
+
+    vector	P1 = vector();
+    vector	v1 = vector();
+    vector	force1 = vector();
+    float	age1 = 0.0;
+    float	life1 = 0.0;
+    int	id1 = 0;
+    vector	Cd1 = vector();
+    vector	uv1 = vector();
+    vector	N1 = vector();
+    float	Time1 = 0.0;
+    float	TimeInc1 = 0.0;
+    float	Frame1 = 0.0;
+    int	ptnum1 = 0;
+    int	primnum1 = 0;
+    int	vtxnum1 = 0;
+    int	numpt1 = 0;
+    int	numprim1 = 0;
+    int	numvtx1 = 0;
+    string	OpInput11 = "";
+    string	OpInput21 = "";
+    string	OpInput31 = "";
+    string	OpInput41 = "";
+    {
+        P_tmp = P;
+
+        v_tmp = v;
+        
+        force_tmp = force;
+        
+        Cd_tmp = Cd;
+        
+        uv_tmp = uv;
+        
+        N_tmp = N;
+        
+        P1 = P_tmp;
+        v1 = v_tmp;
+        force1 = force_tmp;
+        age1 = age;
+        life1 = life;
+        id1 = id;
+        Cd1 = Cd_tmp;
+        uv1 = uv_tmp;
+        N1 = N_tmp;
+        Time1 = Time;
+        TimeInc1 = TimeInc;
+        Frame1 = Frame;
+        ptnum1 = ptnum;
+        primnum1 = primnum;
+        vtxnum1 = vtxnum;
+        numpt1 = numpt;
+        numprim1 = numprim;
+        numvtx1 = numvtx;
+        OpInput11 = OpInput1;
+        OpInput21 = OpInput2;
+        OpInput31 = OpInput3;
+        OpInput41 = OpInput4;
+    }
+    
+    VOPpoint pcP = P1;
+    #if defined(VOP_SHADING) || defined(VOP_SOP) || defined(VOP_POP)
+        if (1 == 0) pcP = P;
+    #endif
+    if ("" != "") {
+        handle = pcopen(file, "P", pcP, "", { 0, 0, 0 }, 10000, 48, "ndot", cos(radians(90)), "preload", 1);
+    } else {
+        handle = pcopen(file, "P", pcP, 10000, 48, "preload", 1);
+    }
+    
+    value = pcfilter(handle, "P");
+    diff = value - P1;
+    product = diff * edge_threshold;
+    
+    vector	_P = vector();
+    vector	_v = vector();
+    vector	_force = vector();
+    vector	_Cd = vector();
+    vector	_N = product;
+    {
+        N = _N;
+    }
+    
+    len = length(product);
+    
+    Value = 0.20000000000000001;
+    
+    bool1 = (len <= Value);
+    
+    fval = (float)bool1;
+    
+    isedge = fval;
+}
